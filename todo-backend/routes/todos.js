@@ -10,6 +10,24 @@ router.get('/', async (req, res) => {
     const todos = await Todo.find();
     res.json(todos);
   } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route    GET /api/todos/:id
+// @desc     Get todo by id.
+router.get('/:id', async (req, res) => {
+  try {
+    const todo = await Todo.findById(req.params.id);
+
+    if (!todo) {
+      return res.status(404).json({ msg: 'Todo not found' });
+    }
+
+    res.json(todo);
+  } catch (err) {
+    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
@@ -18,13 +36,16 @@ router.get('/', async (req, res) => {
 // @desc     Create a new todo
 router.post('/', async (req, res) => {
   try {
+    const { title, description, completed, priority, dueDate } = req.body;
+
     const newTodo = new Todo({
-      text: req.body.text,
+      title, description, completed, priority, dueDate
     });
 
     const todo = await newTodo.save();
     res.json(todo);
   } catch (err) {
+    console.error(err.message);
     res.status(500).send('Server Error');
   }
 });
@@ -44,7 +65,7 @@ router.delete('/:id', async (req, res) => {
     await todo.deleteOne();
     res.json({ msg: 'Todo removed' });
   } catch (err) {
-    console.error('Error deleteing todo:', err);
+    console.error('Error deleting todo:', err);
     res.status(500).send('Server Error');
   }
 });

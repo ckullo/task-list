@@ -22,10 +22,10 @@ function App() {
       });
   }, []);
 
-  const addTodo = (text) => {
+  const addTodo = (newTodo) => {
     setLoading(true);
     axios
-      .post("http://localhost:5000/api/todos", { text })
+      .post("http://localhost:5000/api/todos", newTodo)
       .then((response) => {
         setTodos([...todos, response.data]);
         setMessage("Todo added successfully");
