@@ -1,5 +1,6 @@
 import React from 'react';
 import { ListGroup, Button } from 'react-bootstrap';
+import { FaRegTrashCan } from "react-icons/fa6";
 
 function TodoItem({ todo, onDelete }) {
   return (
@@ -9,7 +10,7 @@ function TodoItem({ todo, onDelete }) {
       <span>{todo.priority}</span>
       <span>{new Date(todo.dueDate).toLocaleDateString()}</span>
       <Button variant="danger" onClick={() => onDelete(todo._id)}>
-        Delete
+        <FaRegTrashCan />
       </Button>
     </ListGroup.Item>
   );

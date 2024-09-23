@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
-
+import { FaRegFile } from 'react-icons/fa6';
 function AddTodo({ onAdd }) {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [priority, setPriority] = useState('');
-  const [dueDate, setDueDate] = useState('');
+  // const [description, setDescription] = useState('');
+  // const [priority, setPriority] = useState('');
+  // const [dueDate, setDueDate] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!title.trim()) return; // Prevent submission if title is empty
     // if (text) {
     //   onAdd(text);
     //   setText('');
@@ -16,15 +17,23 @@ function AddTodo({ onAdd }) {
     try {
       const newTodo = {
         title:title, 
-        description:description, 
-        completed: false, 
-        priority: priority, 
-        dueDate: dueDate};
+        // description:"", 
+        // completed: false, 
+        // priority: "Medium", 
+        // dueDate: dueDate
+      };
 
       onAdd(newTodo);
-      
+      setTitle("");
+
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
     }
   };
 
@@ -37,7 +46,7 @@ function AddTodo({ onAdd }) {
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Enter a new task"
         />
-        <Form.Control
+        {/* <Form.Control
           type="text"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -60,10 +69,10 @@ function AddTodo({ onAdd }) {
           type="date"
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}
-        />
-        <Button type="submit" variant="primary">
-          Add Todo
-        </Button>
+        /> */}
+        {/* <Button type="submit" variant="primary">
+          <FaRegFile />
+        </Button> */}
       </InputGroup>
     </Form>
   );

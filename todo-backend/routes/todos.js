@@ -36,10 +36,11 @@ router.get('/:id', async (req, res) => {
 // @desc     Create a new todo
 router.post('/', async (req, res) => {
   try {
-    const { title, description, completed, priority, dueDate } = req.body;
-
+    // const { title, description, completed, priority, dueDate } = req.body;
+    const { title } = req.body;
     const newTodo = new Todo({
-      title, description, completed, priority, dueDate
+      // title, description, completed, priority, dueDate
+      title
     });
 
     const todo = await newTodo.save();
