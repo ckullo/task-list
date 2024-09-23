@@ -44,7 +44,7 @@ function AddTodo({ onAdd }) {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Enter a new task"
+          placeholder="Add a task"
         />
         {/* <Form.Control
           type="text"
