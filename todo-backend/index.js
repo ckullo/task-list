@@ -2,8 +2,17 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
+const limiter = require('express-rate-limiter');
+
+const rateLimiter = limiter({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+});
 
 const app = express();
+
+// Apply rate limiting to all requests
+app.use(rateLimiter);
 
 // Connect to the database
 connectDB();
