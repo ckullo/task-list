@@ -38,8 +38,27 @@ function App() {
       .finally(() => setLoading(false));
   };
 
+  const updateTodo = (id, title) => {
+    console.log("Updating todo: " + id);
+    axios
+      .patch(`http://localhost:5000/api/todos/${id}`, title)
+      .then((response) => {
+        const updatedTodos = todos.map((t) => (t._id === id ? response.data : t));
+        console.log(response.data);
+        setTodos(updatedTodos);
+        setMessage("Todo updated successfully");
+        setVariant("success");
+        
+      })
+      .catch((err) => {
+        console.log("Failed to update todo:", err);
+        setMessage("Failed to update todo");
+        setVariant("danger");
+      });
+  };
+
   const deleteTodo = (id) => {
-    console.log('ID:', id);
+    console.log("ID:", id);
     axios
       .delete(`http://localhost:5000/api/todos/${id}`)
       .then(() => {
@@ -74,7 +93,11 @@ function App() {
               )}
 
               <AddTodo onAdd={addTodo} />
-              <TodoList todos={todos} onDelete={deleteTodo} />
+              <TodoList
+                todos={todos}
+                onDelete={deleteTodo}
+                onUpdate={updateTodo}
+              />
             </Card.Body>
           </Card>
         </Col>

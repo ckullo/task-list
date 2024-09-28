@@ -2,11 +2,11 @@ import React from 'react';
 import TodoItem from './TodoItem';
 import { ListGroup } from 'react-bootstrap';
 
-function TodoList({ todos, onDelete }) {
+function TodoList({ todos, onDelete, onUpdate }) {
   return (
     <ListGroup>
-      {todos.map((todo) => (
-        <TodoItem key={todo._id} todo={todo} onDelete={onDelete} />
+      {todos.map((todo, index) => (
+        <TodoItem key={todo._id || index} todo={todo} onDelete={onDelete} onUpdate={onUpdate} />
       ))}
     </ListGroup>
   );

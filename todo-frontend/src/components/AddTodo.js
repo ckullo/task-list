@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Form, InputGroup } from 'react-bootstrap';
-
+import { Form, InputGroup, Button } from 'react-bootstrap';
+import { FaPlusCircle } from 'react-icons/fa';
 
 function AddTodo({ onAdd }) {
   const [title, setTitle] = useState('');
@@ -40,7 +40,9 @@ function AddTodo({ onAdd }) {
           onKeyDown={handleKeyDown}
           placeholder="Add a task"
         />
-        
+        <Button type='submit' variant='success'>
+          <FaPlusCircle />
+        </Button>
       </InputGroup>
     </Form>
   );
