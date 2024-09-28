@@ -39,12 +39,12 @@ function App() {
   };
 
   const updateTodo = (id, title) => {
-    console.log("Updating todo: " + id);
+    
     axios
       .patch(`http://localhost:5000/api/todos/${id}`, title)
       .then((response) => {
         const updatedTodos = todos.map((t) => (t._id === id ? response.data : t));
-        console.log(response.data);
+        
         setTodos(updatedTodos);
         setMessage("Todo updated successfully");
         setVariant("success");
