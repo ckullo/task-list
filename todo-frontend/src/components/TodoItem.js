@@ -10,25 +10,33 @@ function TodoItem({ todo, onDelete, onUpdate }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  // handlers for the form submission event
   const handleUpdate = () => {
     onUpdate(todo._id, { title });
     handleClose();
   };
 
+  // handlers for the checkboxes tick events
   const handleRadioChange = () => {
     setIsCompleted(!isCompleted);
+  };
+
+  // handlers for the keydown events on add tasks
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleUpdate();
+    }
   };
 
   return (
     <>
       <ListGroup.Item className="d-flex align-items-center">
-        {/* <InputGroup> */}
+        
         <Form.Check
           aria-label="mark as completed"
           onChange={handleRadioChange}
           className="p-2"
         />
-        {/* <Form.Control type="text" value={todo.title} style={{ textDecoration: isCompleted ? 'line-through' : 'none' }} /> */}
         <span className="p-2" style={{ textDecoration: isCompleted ? 'line-through' : 'none' }}>{todo.title}</span>
         <div className="ms-auto">
           <Button variant="primary" onClick={handleShow} className="me-2">
@@ -38,7 +46,7 @@ function TodoItem({ todo, onDelete, onUpdate }) {
             <FaRegTrashCan />
           </Button>
         </div>
-        {/* </InputGroup> */}
+        
       </ListGroup.Item>
 
       <Modal show={show} onHide={handleClose}>
@@ -54,6 +62,7 @@ function TodoItem({ todo, onDelete, onUpdate }) {
                 placeholder="Enter title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
             </Form.Group>
           </Form>
