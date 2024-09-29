@@ -3,14 +3,7 @@ const express = require("express");
 const router = express.Router();
 const Todo = require("../models/Todo");
 const { trusted } = require("mongoose");
-const limiter = require('express-rate-limiter');
 
-const rateLimiter = limiter({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-});
-
-router.use(rateLimiter);
 // @route    GET /api/todos
 // @desc     Get all todos
 router.get("/", async (req, res) => {
