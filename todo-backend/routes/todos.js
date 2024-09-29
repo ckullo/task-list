@@ -64,8 +64,8 @@ router.patch("/:id", async (req, res) => {
 
     const updatedTodo = await Todo.findByIdAndUpdate(
       id,
-      { title: title },
-      { new: true, findAndModify: false}
+      { title: { $eq: title } },
+      { new: true, findAndModify: false }
     );
 
     if (!updatedTodo) return res.status(404).json({ msg: "Todo not found" });
